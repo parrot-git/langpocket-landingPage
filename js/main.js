@@ -8,7 +8,7 @@
   var cfg = {
       scrollDuration: 800, // smoothscroll duration
       mailChimpURL:
-        "https://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e6957d85dc", // mailchimp url
+        "https://gmail.us21.list-manage.com/subscribe/post?u=df8d958378567c051e904638e&amp;id=d1deaaf8aa&amp;f_id=001ed9e6f0", // mailchimp url
     },
     $WIN = $(window);
 
@@ -239,27 +239,22 @@
   /* AjaxChimp
    * ------------------------------------------------------ */
   var ssAjaxChimp = function () {
-    // todo: implement MailChimp
     $("#mc-form").ajaxChimp({
-      language: "es",
       url: cfg.mailChimpURL,
+      language: "es",
+      callback: function (resp) {
+        console.log({ resp });
+        if (resp.result === "success") {
+          // if the subscription was successful, reset your form
+          $("#mc-form").trigger("reset");
+        }
+      },
     });
-    console.log("MailChimp... ");
 
-    // MailChimp translation
-    //
-    //  Defaults:
-    //	 'submit': 'Submitting...',
-    //  0: 'We have sent you a confirmation email',
-    //  1: 'Please enter a value',
-    //  2: 'An email address must contain a single @',
-    //  3: 'The domain portion of the email address is invalid (the portion after the @: )',
-    //  4: 'The username portion of the email address is invalid (the portion before the @: )',
-    //  5: 'This email address looks fake or invalid. Please enter a real email address'
-
+    // Define the e-mail validation error messages in Spanish
     $.ajaxChimp.translations.es = {
       submit: "Submitting...",
-      0: '<i class="fas fa-check"></i> We have sent you a confirmation email',
+      0: '<i class="fas fa-check"></i> Thank you for registering! We\'re excited to have you join our community.',
       1: '<i class="fas fa-exclamation-triangle"></i> You must enter a valid e-mail address.',
       2: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
       3: '<i class="fas fa-exclamation-triangle"></i> E-mail address is not valid.',
